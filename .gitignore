@@ -12,32 +12,32 @@
 *.ipr
 *.iws
 
-# === Node.js frontend (WorkSpaceManagement-frontend) ===
-WorkSpaceManagement-frontend/node_modules/
-WorkSpaceManagement-frontend/dist/
-WorkSpaceManagement-frontend/dist-ssr/
-WorkSpaceManagement-frontend/*.log
-WorkSpaceManagement-frontend/.DS_Store
-WorkSpaceManagement-frontend/.env.local
-WorkSpaceManagement-frontend/.env.*
-WorkSpaceManagement-frontend/.npmrc
+# === Node.js frontend (FRONTEND) ===
+FRONTEND/node_modules/
+FRONTEND/dist/
+FRONTEND/dist-ssr/
+FRONTEND/*.log
+FRONTEND/.DS_Store
+FRONTEND/.env.local
+FRONTEND/.env.*
+FRONTEND/.npmrc
 
-# === Java backend (WorkSpacesManagement) ===
-WorkSpacesManagement/target/
-WorkSpacesManagement/.classpath
-WorkSpacesManagement/.project
-WorkSpacesManagement/.settings/
-WorkSpacesManagement/.apt_generated
-WorkSpacesManagement/.sts4-cache
-WorkSpacesManagement/build/
-WorkSpacesManagement/HELP.md
-WorkSpacesManagement/.mvn/
-WorkSpacesManagement/nbbuild/
-WorkSpacesManagement/nbdist/
-WorkSpacesManagement/nbproject/
-WorkSpacesManagement/.nb-gradle/
-WorkSpacesManagement/.springBeans
-WorkSpaceManagement/.idea/
+# === Java backend (BACKEND) ===
+BACKEND/target/
+BACKEND/.classpath
+BACKEND/.project
+BACKEND/.settings/
+BACKEND/.apt_generated
+BACKEND/.sts4-cache
+BACKEND/build/
+BACKEND/HELP.md
+BACKEND/.mvn/
+BACKEND/nbbuild/
+BACKEND/nbdist/
+BACKEND/nbproject/
+BACKEND/.nb-gradle/
+BACKEND/.springBeans
+BACKEND/.idea/
 
 # === OS-specific ===
 Thumbs.db
