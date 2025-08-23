@@ -1,0 +1,50 @@
+# === Global ignores ===
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+
+# === IDE folders ===
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# === Node.js frontend (WorkSpaceManagement-frontend) ===
+WorkSpaceManagement-frontend/node_modules/
+WorkSpaceManagement-frontend/dist/
+WorkSpaceManagement-frontend/dist-ssr/
+WorkSpaceManagement-frontend/*.log
+WorkSpaceManagement-frontend/.DS_Store
+WorkSpaceManagement-frontend/.env.local
+WorkSpaceManagement-frontend/.env.*
+WorkSpaceManagement-frontend/.npmrc
+
+# === Java backend (WorkSpacesManagement) ===
+WorkSpacesManagement/target/
+WorkSpacesManagement/.classpath
+WorkSpacesManagement/.project
+WorkSpacesManagement/.settings/
+WorkSpacesManagement/.apt_generated
+WorkSpacesManagement/.sts4-cache
+WorkSpacesManagement/build/
+WorkSpacesManagement/HELP.md
+WorkSpacesManagement/.mvn/
+WorkSpacesManagement/nbbuild/
+WorkSpacesManagement/nbdist/
+WorkSpacesManagement/nbproject/
+WorkSpacesManagement/.nb-gradle/
+WorkSpacesManagement/.springBeans
+WorkSpaceManagement/.idea/
+
+# === OS-specific ===
+Thumbs.db
+
+# === Misc ===
+shelf/
+workspace.xml
+httpRequests/
+dataSources/
+dataSources.local.xml
