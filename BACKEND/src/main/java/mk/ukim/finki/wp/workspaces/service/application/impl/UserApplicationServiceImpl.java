@@ -60,4 +60,9 @@ public class UserApplicationServiceImpl implements UserApplicationService {
     public Optional<DisplayUserDto> findByUsername(String username) {
         return Optional.of(DisplayUserDto.from(userService.findByUsername(username)));
     }
+
+    @Override
+    public boolean deleteUserByUsername(String username) {
+        return userService.deleteUserByUsername(username);
+    }
 }

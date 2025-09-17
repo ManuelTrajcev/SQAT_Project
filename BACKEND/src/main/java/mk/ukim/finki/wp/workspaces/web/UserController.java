@@ -10,9 +10,7 @@ import mk.ukim.finki.wp.workspaces.dto.CreateUserDto;
 import mk.ukim.finki.wp.workspaces.dto.DisplayUserDto;
 import mk.ukim.finki.wp.workspaces.dto.LoginResponseDto;
 import mk.ukim.finki.wp.workspaces.dto.LoginUserDto;
-import mk.ukim.finki.wp.workspaces.model.exceptions.InvalidArgumentsException;
-import mk.ukim.finki.wp.workspaces.model.exceptions.InvalidUserCredentialsException;
-import mk.ukim.finki.wp.workspaces.model.exceptions.PasswordsDoNotMatchException;
+import mk.ukim.finki.wp.workspaces.model.exceptions.*;
 import mk.ukim.finki.wp.workspaces.service.application.UserApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,10 +65,42 @@ public class UserController {
         }
     }
 
+
+
     @Operation(summary = "User logout", description = "Ends the user's session")
     @ApiResponse(responseCode = "200", description = "User logged out successfully")
     @GetMapping("/logout")
     public void logout(HttpServletRequest request) {
         request.getSession().invalidate();
+    }
+
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable String username) {
+        try {
+            boolean deleted = userApplicationService.deleteUserByUsername(username);
+            if (deleted) {
+                return ResponseEntity.ok("User deleted successfully");
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (InvalidUsernameOrPasswordException ex) {
+            return ResponseEntity.badRequest().body("Invalid username");
+        }
+    }
+
+
+    @ExceptionHandler(InvalidUsernameOrPasswordException.class)
+    public ResponseEntity<String> handleInvalidUsernameOrPasswordException(InvalidUsernameOrPasswordException ex) {
+        return ResponseEntity.badRequest().body("Invalid username or password");
+    }
+
+    @ExceptionHandler(PasswordsDoNotMatchException.class)
+    public ResponseEntity<String> handlePasswordsDoNotMatchException(PasswordsDoNotMatchException ex) {
+        return ResponseEntity.badRequest().body("Passwords do not match");
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    public ResponseEntity<String> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException ex) {
+        return ResponseEntity.badRequest().body("Username already exists");
     }
 }
