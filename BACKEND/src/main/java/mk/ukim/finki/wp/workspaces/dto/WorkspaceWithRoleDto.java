@@ -26,4 +26,11 @@ public record WorkspaceWithRoleDto(
         return workspaces.stream().map(WorkspaceWithRoleDto::from).collect(Collectors.toList());
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role.name();
+    }
 }

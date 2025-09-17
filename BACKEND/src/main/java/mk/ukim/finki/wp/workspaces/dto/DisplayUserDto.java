@@ -13,4 +13,8 @@ public record DisplayUserDto(String username, String email) {
     public User toUser() {
         return new User(username, email);
     }
+
+    public String getUsername() {
+        return username;
+    }
 }
