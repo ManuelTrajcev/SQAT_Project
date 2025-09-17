@@ -21,6 +21,7 @@ FRONTEND/.DS_Store
 FRONTEND/.env.local
 FRONTEND/.env.*
 FRONTEND/.npmrc
+FRONTEND/node_modules/**
 
 # === Java backend (BACKEND) ===
 BACKEND/target/
