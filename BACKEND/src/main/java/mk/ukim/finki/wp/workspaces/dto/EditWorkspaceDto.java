@@ -18,4 +18,12 @@ public record EditWorkspaceDto(
     public Workspace toWorkspace() {
         return new Workspace(name, description);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
