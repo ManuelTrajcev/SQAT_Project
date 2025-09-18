@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.workspaces.service.application.impl;
 import mk.ukim.finki.wp.workspaces.dto.DisplayWorkspaceDto;
 import mk.ukim.finki.wp.workspaces.dto.EditWorkspaceDto;
 import mk.ukim.finki.wp.workspaces.dto.WorkspaceWithRoleDto;
+import mk.ukim.finki.wp.workspaces.model.domain.Workspace;
 import mk.ukim.finki.wp.workspaces.service.application.WorkspaceApplicationService;
 import mk.ukim.finki.wp.workspaces.service.domain.WorkspaceService;
 import org.springframework.stereotype.Service;
@@ -50,4 +51,10 @@ public class WorkspaceApplicationServiceImpl implements WorkspaceApplicationServ
                 .map(WorkspaceWithRoleDto::from)
                 .toList();
     }
+
+    @Override
+    public boolean deleteWorkspace(Long workspaceId, Long userId) {
+        return workspaceService.deleteWorkspace(workspaceId, userId);
+    }
+
 }
