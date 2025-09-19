@@ -63,7 +63,9 @@ const Login = () => {
                         variant="contained"
                         type="submit"
                         sx={{mt: 2}}
-                        onClick={handleSubmit}>
+                        onClick={handleSubmit}
+                        id="login-button"
+                        >
                         Login
                     </Button>
                     <Button
@@ -72,6 +74,7 @@ const Login = () => {
                         type="submit"
                         sx={{mt: 2}}
                         onClick={() => navigate("/register")}
+                        id="register-button"
                     >
                         Register
                     </Button>

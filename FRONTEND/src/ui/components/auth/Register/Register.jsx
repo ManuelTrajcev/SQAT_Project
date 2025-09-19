@@ -9,6 +9,7 @@ const initialFormData = {
     "name": "",
     "surname": "",
     "username": "",
+    "email": "",
     "password": "",
     "repeatPassword": "",
     "role": "",
@@ -65,6 +66,14 @@ const Register = () => {
                         onChange={handleChange}
                     />
                     <TextField
+                        fullWidth label="Email"
+                        name="email"
+                        margin="normal"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <TextField
                         fullWidth label="Password"
                         name="password"
                         type="password"
@@ -90,12 +99,13 @@ const Register = () => {
                             variant="outlined"
                             value={formData.role}
                             onChange={handleChange}
+                            id='role-select'
                         >
                             <MenuItem key="user" value="ROLE_USER">User</MenuItem>
                             <MenuItem key="admin" value="ROLE_ADMIN">Administrator</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button fullWidth variant="contained" type="submit" sx={{mt: 2}} onClick={handleSubmit}>
+                    <Button fullWidth variant="contained" type="submit" sx={{mt: 2}} onClick={handleSubmit} id="register-button">
                         Register
                     </Button>
                 </Box>

@@ -52,7 +52,7 @@ const EditWorkspaceDialog = ({open, onClose, workspace, onEdit}) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="warning">Edit</Button>
+                <Button onClick={handleSubmit} variant="contained" color="warning" id='edit-button'>Edit</Button>
             </DialogActions>
         </Dialog>
     );
