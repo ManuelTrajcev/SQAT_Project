@@ -13,4 +13,6 @@ public interface UserApplicationService {
     Optional<LoginResponseDto> login(LoginUserDto loginUserDto);
 
     Optional<DisplayUserDto> findByUsername(String username);
+
+    boolean deleteUserByUsername(String username);
 }

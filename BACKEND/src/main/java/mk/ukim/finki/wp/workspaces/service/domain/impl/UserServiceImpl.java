@@ -1,4 +1,5 @@
 package mk.ukim.finki.wp.workspaces.service.domain.impl;
+
 import mk.ukim.finki.wp.workspaces.model.domain.User;
 import mk.ukim.finki.wp.workspaces.model.exceptions.*;
 import mk.ukim.finki.wp.workspaces.repository.UserRepository;
@@ -31,6 +32,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean deleteUserByUsername(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            userRepository.delete(userRepository.findByUsername(username).get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public User register(
             String username,
             String email,
@@ -39,9 +50,16 @@ public class UserServiceImpl implements UserService {
     ) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty())
             throw new InvalidUsernameOrPasswordException();
-        if (!password.equals(repeatPassword)) throw new PasswordsDoNotMatchException();
+
+        if (email == null || email.isEmpty())
+            throw new InvalidUsernameOrPasswordException();
+
+        if (!password.equals(repeatPassword))
+            throw new PasswordsDoNotMatchException();
+
         if (userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
+
         User user = new User(username, email, passwordEncoder.encode(password));
         return userRepository.save(user);
     }

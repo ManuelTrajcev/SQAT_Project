@@ -15,4 +15,6 @@ public interface WorkspaceService {
     Optional<Workspace> findById(Long workspaceId);
 
     List<UserWorkspace> findAllPerUser(Long userId);
+
+    boolean deleteWorkspace(Long workspaceId, Long userId);
 }

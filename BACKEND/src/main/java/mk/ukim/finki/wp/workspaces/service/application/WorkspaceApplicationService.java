@@ -12,4 +12,6 @@ public interface WorkspaceApplicationService {
     Optional<DisplayWorkspaceDto> openWorkspace(Long workspaceId, Long userId);
     Optional<EditWorkspaceDto> editWorkspace(Long workspaceId, Long userId, EditWorkspaceDto editWorkspaceDto);
     List<WorkspaceWithRoleDto> findAllPerUser(Long userId);
+
+    boolean deleteWorkspace(Long workspaceId, Long userId);
 }

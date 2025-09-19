@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.workspaces.service.domain.impl;
 
 import mk.ukim.finki.wp.workspaces.model.domain.UserWorkspace;
 import mk.ukim.finki.wp.workspaces.model.domain.Workspace;
+import mk.ukim.finki.wp.workspaces.model.enumerations.Role;
 import mk.ukim.finki.wp.workspaces.repository.UserWorkspaceRepository;
 import mk.ukim.finki.wp.workspaces.repository.WorkspaceRepository;
 import mk.ukim.finki.wp.workspaces.service.domain.UserWorkspaceService;
@@ -9,6 +10,7 @@ import mk.ukim.finki.wp.workspaces.service.domain.WorkspaceService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,5 +63,21 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public List<UserWorkspace> findAllPerUser(Long userId) {
 
         return userWorkspaceRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public boolean deleteWorkspace(Long workspaceId, Long userId) {
+        Optional<Workspace> workspaceOptional = workspaceRepository.findById(workspaceId);
+
+        Map<Long, Role> workspaceWithRole =  userWorkspaceService.workspacesWithRolesForUser(userId);
+        if (workspaceOptional.isPresent()) {
+            Workspace workspace = workspaceOptional.get();
+
+            if (workspaceWithRole.containsKey(workspace.getId()) && workspaceWithRole.get(workspaceId).equals(Role.ROLE_ADMIN)) {
+                workspaceRepository.delete(workspace);
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -68,4 +68,20 @@ public class WorkspaceController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
+
+    @Operation(summary = "Delete a workspace", description = "Deletes a workspace.")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteWorkspace(@PathVariable Long id) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = (User) authentication.getPrincipal();
+
+        boolean isDeleted = workspaceApplicationService.deleteWorkspace(id, loggedInUser.getId());
+        if (isDeleted) {
+            return ResponseEntity.ok("Workspace deleted successfully");
+        } else {
+            return ResponseEntity.status(404).body("Workspace not found");
+        }
+    }
+
 }
