@@ -101,6 +101,35 @@ public class WorkspaceControllerTest {
                 .statusCode(401);  // HTTP 401 Unautorized
     }
 
+    @Test
+    public void testAccessWorkspace_NotFound() {
+        Long workspaceId = 120L;
+
+        String loginUserJson = "{\n" +
+                "    \"username\": \"mt\",\n" +
+                "    \"password\": \"mt\"\n" +
+                "}";
+
+        String token = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(loginUserJson)
+                .when()
+                .post("/user/login")
+                .then()
+                .statusCode(200)
+                .body("token", notNullValue())
+                .body("token", not(emptyString()))
+                .extract()
+                .path("token");
+
+        RestAssured.given()
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get("/workspace/" + workspaceId)
+                .then()
+                .statusCode(404);  // HTTP 401 Not Found
+    }
+
     // Test for Editing a workspace
     @Test
     public void testEditWorkspace_Success() {
@@ -141,10 +170,82 @@ public class WorkspaceControllerTest {
                 .body("description", equalTo("Updated Description"));
     }
 
+    @Test
+    public void testEditWorkspace_Unauthorized() {
+        Long workspaceId = 5L;
+
+        // Login credentials
+        String loginUserJson = "{\n" +
+                "    \"username\": \"mt\",\n" +
+                "    \"password\": \"mt\"\n" +
+                "}";
+
+        String token = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(loginUserJson)
+                .when()
+                .post("/user/login")
+                .then()
+                .statusCode(200)
+                .body("token", notNullValue())
+                .body("token", not(emptyString()))
+                .extract()
+                .path("token");
+
+        String editWorkspaceJson = "{\n" +
+                "    \"name\": \"Updated Workspace Name\",\n" +
+                "    \"description\": \"Updated Description\"\n" +
+                "}";
+
+        RestAssured.given()
+                .header("Authorization", "Bearer " + token)
+                .contentType(ContentType.JSON)
+                .body(editWorkspaceJson)
+                .when()
+                .post("/workspace/edit/" + workspaceId)
+                .then()
+                .statusCode(401);  // HTTP 401
+    }
     // Test for Editing a workspace that doesn't exist
     @Test
-    public void testEditWorkspace_NotFound() {
+    public void testEditWorkspace_NotAuthenticated() {
         Long workspaceId = 4L;
+
+        String editWorkspaceJson = "{\n" +
+                "    \"name\": \"Updated Workspace Name\",\n" +
+                "    \"description\": \"Updated Description\"\n" +
+                "}";
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(editWorkspaceJson)
+                .when()
+                .post("/workspace/edit/" + workspaceId)
+                .then()
+                .statusCode(401);  // HTTP 401 UnAuthorized
+    }
+
+    @Test
+    public void testEditWorkspace_NotFound() {
+        Long workspaceId = 99L;
+
+        // Login credentials
+        String loginUserJson = "{\n" +
+                "    \"username\": \"mt\",\n" +
+                "    \"password\": \"mt\"\n" +
+                "}";
+
+        String token = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(loginUserJson)
+                .when()
+                .post("/user/login")
+                .then()
+                .statusCode(200)
+                .body("token", notNullValue())
+                .body("token", not(emptyString()))
+                .extract()
+                .path("token");
 
         String editWorkspaceJson = "{\n" +
                 "    \"name\": \"Updated Workspace Name\",\n" +
